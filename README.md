@@ -2,7 +2,7 @@
 
 We used in this project the _SIDD (Smartphone Image Denoising Dataset)_ dataset which contains 160 pairs GT - Noisy (camera noise), high resolution images. 
 The images were splitted in patches due their resolution and high number of parameters that had the used Neural Networks. Have been used 2 Neural networks:
-- (DnCNN)[https://arxiv.org/pdf/1608.03981.pdf]
+- [DnCNN](https://arxiv.org/pdf/1608.03981.pdf)
 - CAE (Convolutional AutoEncoder)
 for the denoising task. 
 
