@@ -92,7 +92,6 @@ if __name__ == "__main__":
 
 #LatentSpace:
     #x6 = tf.keras.layers.Dense(units = latent_dimension, activation = 'relu')(x5)
-    #STIU CA CE IESE DIN X4 NU E DE 4X4 SI CONTEAZA SI ULTIMA DIMENSIUNE! IESE UN FEL DE SALAM PATRAT DE-ACOLO!!
 
 #Decoder:
     #x7 = tf.keras.layers.InputLayer(input_shape=(latent_dimension,))(x6)
@@ -110,10 +109,6 @@ if __name__ == "__main__":
     x13 = tf.keras.layers.Conv2DTranspose(filters=3, kernel_size=3, strides=1, padding='same',
                                           activation='sigmoid')(x12)
     
-
-### ACHTUNG: Trebuie refacute patch-urile la o dimensiune gen 384, trebuie sa intreb ca nu se impart exact si da o poza
-    #dubioasa si gresita
-
     model = tf.keras.models.Model(input, x13)
 
     model.compile(
@@ -137,8 +132,6 @@ new_model = tf.keras.models.load_model('v2.h5')
 print(len(lista_patchuri))
 
 
-##### => O imagine are 264 de patch-uri. LATELY AM AFLAT CA NU TOATE AU 264 PATCHURI, DIFERA.
-
 
 lista_predictii=[]
 #for i in lista_patchuri:
@@ -153,7 +146,7 @@ plt.imshow(poza_refacuta)
 
 plt.show()
 '''
-####################### FUNCTIA RESTORE IMAGE AVEA RETARD AM MODIFICAT O #############
+
 
 
 
@@ -211,36 +204,6 @@ plt.show()
 #
 #    #model_history = model.fit(train_ds, validation_data=val_ds, epochs=10, callbacks=callback)
 #     print(model.summary())
-#
-#
-#     pozik = plt.imread('NOISY_SRGB_010.PNG')
-#     #pozik = plt.imread('noisy ardei grasi.PNG')
-#     lista_patchuri = patching(pozik, (256, 256), (256, 256))
-#     new_model = tf.keras.models.load_model('RETEAUA3.h5')
-#
-#     print(len(lista_patchuri))
-#     pozik_buna = restore_image(lista_patchuri, (256, 256), np.shape(pozik))
-#     plt.figure()
-#     plt.imshow(pozik_buna)
-#
-#     plt.show()
-#
-#     ##### => O imagine are 264 de patch-uri. LATELY AM AFLAT CA NU TOATE AU 264 PATCHURI, DIFERA.
-#
-#     lista_predictii = []
-#     # for i in lista_patchuri:
-#     # print (np.shape(i))
-#     predictie = new_model.predict(lista_patchuri)
-#
-#     # lista_predictii.append(predictie)
-#
-#     # poza_refacuta = tf.reshape (predictie, shape = (3250,4250,3))
-#     poza_refacuta = restore_image(predictie, (256, 256), np.shape(pozik))
-#     restored_image = tf.reshape(predictie, (3072, 5376, 3))
-#     plt.figure()
-#     plt.imshow(restored_image)
-#
-#     plt.show()
 
 
 
@@ -290,38 +253,6 @@ plt.show()
 #                                            verbose=1)]
 #
 #     #model_history = model.fit(train_ds, validation_data=val_ds, epochs=10, callbacks=callback)
-#
-#
-#     #pozik = plt.imread('NOISY_SRGB_010.PNG')
-#     #pozik = norm_image(pozik)
-#     pozik = plt.imread('noisy ardei grasi.PNG')
-#     lista_patchuri = patching(pozik, (256, 256), (256, 256))
-#     new_model = tf.keras.models.load_model('RETEAUAv4.1.h5')
-#
-#     print(len(lista_patchuri))
-#     pozik_buna = restore_image(lista_patchuri, (256, 256), np.shape(pozik))
-#     plt.figure()
-#     plt.imshow(pozik_buna)
-#
-#     plt.show()
-#
-#     ##### => O imagine are 264 de patch-uri. LATELY AM AFLAT CA NU TOATE AU 264 PATCHURI, DIFERA.
-#
-#     lista_predictii = []
-#     # for i in lista_patchuri:
-#     # print (np.shape(i))
-#     predictie = new_model.predict(lista_patchuri)
-#
-#     # lista_predictii.append(predictie)
-#
-#     # poza_refacuta = tf.reshape (predictie, shape = (3250,4250,3))
-#     poza_refacuta = restore_image(predictie, (256, 256), np.shape(pozik))
-#     print(poza_refacuta)
-#     #restored_image = tf.reshape(predictie,(2048,6144,3))
-#     plt.figure()
-#     plt.imshow(poza_refacuta)
-#
-#     plt.show()
 
 
 #################3 RETEAUA 5 - PATCHURI DE 32 X 32 ####################
@@ -437,9 +368,9 @@ plt.show()
 
 # Generare de patch-uri
 
-# sebastian = Generator (load_path= "C:\\Users\\vlogw\\Desktop\\Small_Dataset\\", save_path= "D:\\Small_Dataset_256",
+# gen = Generator (load_path= "C:\\Users\\vlogw\\Desktop\\Small_Dataset\\", save_path= "D:\\Small_Dataset_256",
 #                        stride= (256,256), patch_size= (256,256), train_test_split_percentage =0.8, train = 'train')
-# sebastian.load_data()
+# gen.load_data()
 
 
 ########## ASTA CRED CA ERA
@@ -448,11 +379,6 @@ Modelul se numeste: [model bun] TEST v3 32 x 32 - Small Dataset 10 epochs.h5
 Este antrenat pe Small Dataset
 Patch 100 x 100 cu 50 x 50 stride
 '''
-######################################## AICI ERAM
-# Concluzii:
-
-# Antrenamentul trebuie facut pe poze fara stride ca altfel se strica culorile si SNR goes down down downnnn
-# Batch size-ul trebuie sa fie caaaat mai mic, ca o furnica. Daca e 32, da poza maro, daca e 4 da OLED.
 
 '''
 if __name__ == "__main__":
@@ -513,94 +439,11 @@ if __name__ == "__main__":
                                            verbose=1)]
 
 
-'''
 ################# NUME MODEL : CAE100 FINAL BUN.h5 ###################
-
-    #pozik = norm_image(pozik)
-    # plt.figure()
-    # plt.imshow(pozik)
-    # plt.show()
-    # lista_patchuri = patching(pozik, (32, 32), (16, 16))
-    #poza = restore_image(lista_patchuri, (16,16), pozik.shape, overlap = 0.5)
-
-'''
-    model_history = model.fit(train_ds, validation_data=val_ds, epochs=100, callbacks=callback)
-  
-    # pozik = plt.imread('NOISY_SRGB_010.PNG')
-    # pozik = norm_image(pozik)
-    pozik = plt.imread('NOISY_SRGB_010.PNG')
-    poza_GT = plt.imread("GT_SRGB_010.PNG")
-    lista_patchuri = patching(pozik, (100, 100), (50, 50))
-    lista_patchuri_GT = patching(poza_GT, (100, 100), (50, 50))
-    new_model = tf.keras.models.load_model('CAE100 FINAL BUN.h5')
-
-    print("POZIK", pozik.shape)
-    print(len(lista_patchuri))
-    # pozik_buna = restore_image(lista_patchuri, (100, 100), np.shape(pozik))
-    # plt.figure()
-    # plt.imshow(pozik_buna)
-
-    plt.show()
-
-    ##### => O imagine are 264 de patch-uri. LATELY AM AFLAT CA NU TOATE AU 264 PATCHURI, DIFERA.
-
-    lista_predictii = []
-    # for i in lista_patchuri:
-    # print (np.shape(i))
-
-    # for patch in lista_patchuri:
-    #     # print (patch.shape)
-    #     predictie = new_model.predict(np.reshape(patch, (1, 100, 100, 3)))
-    #     lista_predictii.append(predictie.squeeze())
-    #     # print(predictie.shape)
-
-    predictie = new_model.predict(lista_patchuri)
-
-    # lista_predictii.append(predictie)
-
-    # poza_refacuta = tf.reshape (predictie, shape = (3250,4250,3))
-    poza_refacuta = restore_image(predictie, (50, 50), pozik.shape, overlap=0.5)
-
-    print("POZA REFACUTA", poza_refacuta.shape)
-    # restored_image = tf.reshape(predictie,(2048,6144,3))
-    plt.figure()
-    plt.imshow(poza_refacuta)
-    # plt.imshow (predictie[1265])
-    plt.show()
-
-    # poza_filtrata = ndimage.median_filter(lista_patchuri)
-    #
-    # plt.figure()
-    # plt.imshow(poza_filtrata)
-    # plt.show()
-
-    # plt.figure()
-
-    fig, axs = plt.subplots(3, 3)
-    for i in range(3):
-        for j in range(3):
-            axs[i, j].imshow(lista_patchuri_GT[i + 10 * j])
-    plt.show()
-
-    # fig, axs = plt.subplots(2, 2)
-    # for col in range(2):
-    #     for row in range(2):
-    #         ax = axs[row, col]
-    #         pcm =  ax.pcolormesh(predictie[1])
-    #         fig.colorbar(pcm, ax=ax)
-    # plt.show()
-
-    MSEn, MAEn, SNRn, PSNRn = restoration_metrics(poza_GT, pozik)
-    MSE, MAE, SNR, PSNR = restoration_metrics(poza_GT, poza_refacuta)
-
-    print("MSE NOISY - GT {0}, MAE NOISY - GT {1}, SNR NOISY - GT {2} \nMSE GT - PREDICT {3},"
-          " MAE GT - PREDICT {4}, SNR GT - PREDICT {5}".format(MSEn, MAEn, SNRn, MSE, MAE, SNR))
-'''
-'''
 if __name__ == "__main__":
-    # sebastian = Generator (load_path= "C:\\Users\\vlogw\\Desktop\\Data\\", save_path= "D:\\Small_Dataset_256",
+    # gen = Generator (load_path= "C:\\Users\\vlogw\\Desktop\\Data\\", save_path= "D:\\Small_Dataset_256",
     #                        stride= (256,256), patch_size= (256,256), train_test_split_percentage =0.8, train = 'train')
-    # sebastian.load_data()
+    # gen.load_data()
 
     train_generator = Generator(load_path="C:\\Users\\vlogw\\Desktop\\Data\\", save_path="D:\\Small_Dataset_256",
                                 stride=(256, 256), patch_size=(256, 256), train_test_split_percentage=0.8,
@@ -645,80 +488,22 @@ if __name__ == "__main__":
     print(model.summary())
 
     callback = [
-        tf.keras.callbacks.ModelCheckpoint('CEDEZ NERVOS v3 256 x 256 - Small Dataset 10 epochs.h5', monitor='val_loss',
+        tf.keras.callbacks.ModelCheckpoint('MODEL_CAE v3 256 x 256 - Small Dataset 10 epochs.h5', monitor='val_loss',
                                            save_best_only=True,
                                            verbose=1)]
 
     #model_history = model.fit(train_ds, validation_data=val_ds, epochs=10, callbacks=callback)
 
 
-    #pozik = plt.imread('NOISY_SRGB_010.PNG')
-    #pozik = norm_image(pozik)
-    pozik = plt.imread('NOISY_SRGB_010.PNG')
-    poza_GT = plt.imread("GT_SRGB_010.PNG")
-    lista_patchuri = patching(pozik, (256, 256), (256, 256))
-    lista_patchuri_GT = patching(poza_GT, (256, 256), (256, 256))
-    new_model = tf.keras.models.load_model('CEDEZ NERVOS v3 256 x 256 - Small Dataset 10 epochs.h5')
-
-    print(len(lista_patchuri))
-    # pozik_buna = restore_image(lista_patchuri, (32, 32), np.shape(pozik))
-    # plt.figure()
-    # plt.imshow(pozik_buna)
-
-    plt.show()
-
-    ##### => O imagine are 264 de patch-uri. LATELY AM AFLAT CA NU TOATE AU 264 PATCHURI, DIFERA.
-
-    lista_predictii = []
-    # for i in lista_patchuri:
-    # print (np.shape(i))
-
-    predictie = new_model.predict(lista_patchuri)
-
-    # lista_predictii.append(predictie)
-
-    # poza_refacuta = tf.reshape (predictie, shape = (3250,4250,3))
-    poza_refacuta = restore_image(predictie, (256, 256), np.shape(pozik))
-
-    print(poza_refacuta)
-    #restored_image = tf.reshape(predictie,(2048,6144,3))
-    plt.figure()
-    plt.imshow(poza_refacuta)
-    plt.show()
-
-    # plt.figure()
-
-
-    fig, axs = plt.subplots(3, 3)
-    for i in range(3):
-        for j in range(3):
-            axs[i, j].imshow(lista_patchuri_GT[4*i + j])
-    plt.show()
-
-    # fig, axs = plt.subplots(2, 2)
-    # for col in range(2):
-    #     for row in range(2):
-    #         ax = axs[row, col]
-    #         pcm =  ax.pcolormesh(predictie[1])
-    #         fig.colorbar(pcm, ax=ax)
-    # plt.show()
-
-
-    MSEn, MAEn, SNRn, PSNRn = restoration_metrics(poza_GT, pozik)
-    MSE, MAE, SNR, PSNR = restoration_metrics(poza_GT, poza_refacuta)
-
-    print ("MSE NOISY - GT {0}, MAE NOISY - GT {1}, SNR NOISY - GT {2} \nMSE GT - PREDICT {3},"
-           " MAE GT - PREDICT {4}, SNR GT - PREDICT {5}".format(MSEn, MAEn, SNRn, MSE, MAE, SNR ))
 '''
 
-###############3 RETEA NOUA CARE SPER SA MEARGA - CU STRIDE ####################
 
 
 '''
 if __name__ == "__main__":
-    # sebastian = Generator (load_path= "C:\\Users\\vlogw\\Desktop\\Data\\", save_path= "D:\\Full_Dataset_100",
+    # gen = Generator (load_path= "C:\\Users\\vlogw\\Desktop\\Data\\", save_path= "D:\\Full_Dataset_100",
     #                        stride= (100,100), patch_size= (100,100), train_test_split_percentage =0.8, train = 'train')
-    # sebastian.load_data()
+    # gen.load_data()
 
     train_generator = Generator(load_path="C:\\Users\\vlogw\\Desktop\\Data\\", save_path="D:\\Patch de 100 x 100",
                                 stride=(100, 100), patch_size=(100, 100), train_test_split_percentage=0.8,
@@ -763,7 +548,7 @@ if __name__ == "__main__":
     print(model.summary())
 
     callback = [
-        tf.keras.callbacks.ModelCheckpoint('CEDEZ NERVOS STRIDE v1 100 x 100 - Small Dataset 10 epochs.h5', monitor='val_loss',
+        tf.keras.callbacks.ModelCheckpoint('CAE MODEL STRIDE v1 100 x 100 - Small Dataset 10 epochs.h5', monitor='val_loss',
                                            save_best_only=True,
                                            verbose=1)]
 
@@ -771,12 +556,12 @@ if __name__ == "__main__":
 '''
 
 
-################################ DnCNN - CEVA FIN ####################################
+################################ DnCNN ####################################
 '''
 if __name__ == "__main__":
-    sebastian = Generator (load_path= "C:\\Users\\vlogw\\Desktop\\Data\\", save_path= "D:\\Full_Dataset_100",
+    gen = Generator (load_path= "C:\\Users\\vlogw\\Desktop\\Data\\", save_path= "D:\\Full_Dataset_100",
                            stride= (100,100), patch_size= (100,100), train_test_split_percentage =0.8, train = 'train')
-    sebastian.load_data()
+    gen.load_data()
 
     train_generator = Generator(load_path="C:\\Users\\vlogw\\Desktop\\Data\\", save_path="D:\\Patch de 100 x 100",
                                 stride=(100, 100), patch_size=(100, 100), train_test_split_percentage=0.8,
